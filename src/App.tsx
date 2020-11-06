@@ -9,6 +9,13 @@ import Car from "./Components/Car";
 const App = () => {
   return (
     <>
+      <header>
+        <nav className="navbar">
+          <p>Purchase</p>
+          <p>My Orders</p>
+          <p>Sell</p>
+        </nav>
+      </header>
       <Switch>
         <Route exact path="/">
           <Redirect to="/cars" /> :
@@ -23,6 +30,9 @@ const App = () => {
           <NoMatch />
         </Route>
       </Switch>
+      <footer>
+        <p>Copyright 2020</p>
+      </footer>
     </>
   );
 };

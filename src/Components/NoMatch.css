@@ -1,0 +1,12 @@
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.link {
+  color: #ea7f28;
+  text-decoration: none;
+}

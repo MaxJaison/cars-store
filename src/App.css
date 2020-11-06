@@ -1,0 +1,29 @@
+header {
+  height: 80px;
+  padding: 0 24px;
+  border-bottom: 1px solid #ededed;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  align-items: center;
+}
+
+p:not(:last-child) {
+  padding-right: 24px;
+}
+
+footer {
+  height: 80px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+  border-top: 1px solid #ededed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
