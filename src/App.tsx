@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-// @ts-ignore
 import { Route, Switch, Redirect } from "react-router-dom";
 import CarsList from "./Components/CarsList";
 import NoMatch from "./Components/NoMatch";
