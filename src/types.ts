@@ -1,5 +1,6 @@
 export interface RootState {
   cars: any;
+  car: any;
   color: any;
   manufacture: any;
   sortBy: any;
@@ -44,6 +45,7 @@ export const CHANGE_PAGE = "CHANGE_PAGE";
 
 export const FETCH_CARS_PENDING = "FETCH_CARS_PENDING";
 export const FETCH_CARS_SUCCESS = "FETCH_CARS_SUCCESS";
+export const FETCH_CAR_SUCCESS = "FETCH_CAR_SUCCESS";
 export const FETCH_CARS_ERROR = "FETCH_CARS_ERROR";
 
 interface ChangeColor {
@@ -70,9 +72,14 @@ interface Pending {
   type: typeof FETCH_CARS_PENDING;
 }
 
-interface FetchCar {
+interface FetchCars {
   type: typeof FETCH_CARS_SUCCESS;
   payload: CarsData;
+}
+
+interface FetchCar {
+  type: typeof FETCH_CAR_SUCCESS;
+  payload: Car;
 }
 
 interface Error {
@@ -85,4 +92,4 @@ export type FiltersActionTypes =
   | ChangeManufacture
   | ChangeSortBy
   | ChangePage;
-export type CarsActionTypes = FetchCar | Error | Pending;
+export type CarsActionTypes = FetchCars | FetchCar | Error | Pending;

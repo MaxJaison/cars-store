@@ -3,7 +3,7 @@ import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Components/Home";
 import NoMatch from "./Components/NoMatch";
-import Car from "./Components/Car";
+import CarPage from "./Components/CarPage";
 
 const App = () => {
   return (
@@ -21,7 +21,7 @@ const App = () => {
             <Redirect to="/cars" /> :
           </Route>
           <Route exact path="/cars/:id">
-            <Car />
+            <CarPage />
           </Route>
           <Route exact path="/cars">
             <Home />

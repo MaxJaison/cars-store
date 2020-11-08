@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./CarsList.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Car, RootState } from "../types";
-import fetchCars from "../actionCreator/carsActions";
+import { fetchCars } from "../actionCreators/carsActions";
 import { Card, CardContent, CardMedia } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import EmptyCard from "./EmptyCard";
@@ -19,7 +19,7 @@ const CarsList = () => {
 
   useEffect(() => {
     dispatch(fetchCars(1, []));
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     let filters = [];
@@ -45,7 +45,15 @@ const CarsList = () => {
       ) : (
         <>
           <h2>Available Cars</h2>
-          <p>Showing 10 of {data.carsData.totalCarsCount} results</p>
+          <p>
+            Showing{" "}
+            {data.carsData.totalCarsCount < 10
+              ? data.carsData.totalCarsCount
+              : data.carsData.cars.length === 10
+              ? 10
+              : data.carsData.totalCarsCount % 10}{" "}
+            of {data.carsData.totalCarsCount} results
+          </p>
           {data.carsData.cars.map((car: Car) => {
             return (
               <Card className="card" key={car.stockNumber}>

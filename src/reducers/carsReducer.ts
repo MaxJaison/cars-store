@@ -2,6 +2,7 @@ import {
   CarsActionTypes,
   FETCH_CARS_ERROR,
   FETCH_CARS_SUCCESS,
+  FETCH_CAR_SUCCESS,
 } from "../types";
 
 const initialState = {
@@ -10,10 +11,7 @@ const initialState = {
   error: null,
 };
 
-export default function carsReducer(
-  state = initialState,
-  action: CarsActionTypes
-) {
+export const carsReducer = (state = initialState, action: CarsActionTypes) => {
   switch (action.type) {
     case FETCH_CARS_SUCCESS:
       return {
@@ -30,4 +28,21 @@ export default function carsReducer(
     default:
       return state;
   }
-}
+};
+
+export const carReducer = (state = {}, action: CarsActionTypes) => {
+  switch (action.type) {
+    case FETCH_CAR_SUCCESS:
+      return {
+        ...state,
+        car: action.payload,
+      };
+    case FETCH_CARS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};

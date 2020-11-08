@@ -2,22 +2,17 @@ import { Button, FormControl } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import React from "react";
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  withStyles,
-} from "@material-ui/core/styles";
+import React, { useEffect } from "react";
+import { withStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { FiltersProps, Manufacture, RootState } from "../types";
 import "./Filters.css";
-import fetchCars from "../actionCreator/carsActions";
+import { fetchCars } from "../actionCreators/carsActions";
 import {
   changeColor,
   changeManufacture,
   changeSortBy,
-} from "../actionCreator/filterActions";
+} from "../actionCreators/filterActions";
 
 const StyledButton = withStyles({
   root: {
@@ -40,22 +35,17 @@ const StyledButton = withStyles({
   },
 })(Button);
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 250,
-    },
-  })
-);
-
 const Filters = ({ colors, manufactures }: FiltersProps) => {
-  const classes = useStyles();
-
   const dispatch = useDispatch();
   const color = useSelector((state: RootState) => state.color);
   const manufacture = useSelector((state: RootState) => state.manufacture);
   const sortBy = useSelector((state: RootState) => state.sortBy);
+
+  useEffect(() => {
+    dispatch(changeColor(""));
+    dispatch(changeManufacture(""));
+    dispatch(changeSortBy("none"));
+  }, [dispatch]);
 
   const handleColor = (event: React.ChangeEvent<{ value: unknown }>) => {
     dispatch(changeColor(event.target.value));
@@ -88,7 +78,7 @@ const Filters = ({ colors, manufactures }: FiltersProps) => {
 
   return (
     <div className="filters">
-      <FormControl variant="outlined" className={classes.formControl}>
+      <FormControl variant="outlined" className="select">
         <InputLabel id="demo-simple-select-outlined-label">Color</InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
@@ -109,7 +99,7 @@ const Filters = ({ colors, manufactures }: FiltersProps) => {
           })}
         </Select>
       </FormControl>
-      <FormControl variant="outlined" className={classes.formControl}>
+      <FormControl variant="outlined" className="select">
         <InputLabel id="demo-simple-select-outlined-label">
           Manufacture
         </InputLabel>
@@ -132,7 +122,7 @@ const Filters = ({ colors, manufactures }: FiltersProps) => {
           })}
         </Select>
       </FormControl>
-      <FormControl variant="outlined" className={classes.formControl}>
+      <FormControl variant="outlined" className="select">
         <InputLabel id="demo-simple-select-outlined-label">Sort By</InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"

@@ -6,3 +6,8 @@
   align-items: flex-end;
   height: 290px;
 }
+
+.select {
+  min-width: 250px !important;
+  margin-bottom: 20px !important;
+}

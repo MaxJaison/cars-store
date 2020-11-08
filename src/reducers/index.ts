@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import carsReducer from "./carsReducer";
+import { carsReducer, carReducer } from "./carsReducer";
 import {
   changePageReducer,
   colorsReducer,
@@ -13,4 +13,5 @@ export default combineReducers({
   sortBy: sortByReducer,
   page: changePageReducer,
   cars: carsReducer,
+  car: carReducer,
 });
