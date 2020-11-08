@@ -1,21 +1,88 @@
+export interface RootState {
+  cars: any;
+  color: any;
+  manufacture: any;
+  sortBy: any;
+  page: any;
+}
+
+export interface Manufacture {
+  name: string;
+  models: {
+    name: string;
+  };
+}
+
+export interface Car {
+  stockNumber: number;
+  manufacturerName: string;
+  modelName: string;
+  mileage: {
+    number: number;
+    unit: string;
+  };
+  fuelType: string;
+  color: string;
+  pictureUrl: string;
+}
+
+export interface CarsData {
+  cars: Car[];
+  totalPageCount: number;
+  totalCarsCount: number;
+}
+
+export type FiltersProps = {
+  colors: string[];
+  manufactures: Manufacture[];
+};
+
 export const CHANGE_COLOR = "CHANGE_COLOR";
 export const CHANGE_MANUFACTURE = "CHANGE_MANUFACTURE";
-export const FILTER_CARS = "FILTER_CARS";
+export const CHANGE_SORT_BY = "CHANGE_SORT_BY";
+export const CHANGE_PAGE = "CHANGE_PAGE";
+
+export const FETCH_CARS_PENDING = "FETCH_CARS_PENDING";
+export const FETCH_CARS_SUCCESS = "FETCH_CARS_SUCCESS";
+export const FETCH_CARS_ERROR = "FETCH_CARS_ERROR";
 
 interface ChangeColor {
   type: typeof CHANGE_COLOR;
-  payload: string;
+  payload: unknown;
 }
 
 interface ChangeManufacture {
   type: typeof CHANGE_MANUFACTURE;
-  payload: string;
+  payload: unknown;
 }
 
-interface FilterCars {
-  type: typeof FILTER_CARS;
-  payload: string;
+interface ChangeSortBy {
+  type: typeof CHANGE_SORT_BY;
+  payload: unknown;
 }
 
-export type FiltersActionTypes = ChangeColor | ChangeManufacture;
-export type CarsActionTypes = FilterCars;
+interface ChangePage {
+  type: typeof CHANGE_PAGE;
+  payload: unknown;
+}
+
+interface Pending {
+  type: typeof FETCH_CARS_PENDING;
+}
+
+interface FetchCar {
+  type: typeof FETCH_CARS_SUCCESS;
+  payload: CarsData;
+}
+
+interface Error {
+  type: typeof FETCH_CARS_ERROR;
+  payload: any;
+}
+
+export type FiltersActionTypes =
+  | ChangeColor
+  | ChangeManufacture
+  | ChangeSortBy
+  | ChangePage;
+export type CarsActionTypes = FetchCar | Error | Pending;

@@ -9,10 +9,15 @@ import {
   Theme,
   withStyles,
 } from "@material-ui/core/styles";
-import { Manufacture } from "./IManufacture";
-import { connect } from "react-redux";
-import changeManufacture from "../actionCreator/changeManufacture";
-import changeColor from "../actionCreator/changeColor";
+import { useDispatch, useSelector } from "react-redux";
+import { FiltersProps, Manufacture, RootState } from "../types";
+import "./Filters.css";
+import fetchCars from "../actionCreator/carsActions";
+import {
+  changeColor,
+  changeManufacture,
+  changeSortBy,
+} from "../actionCreator/filterActions";
 
 const StyledButton = withStyles({
   root: {
@@ -44,34 +49,42 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type FiltersProps = {
-  colors: string[];
-  manufactures: Manufacture[];
-  color: string;
-  manufacture: string;
-  setColor: Function;
-  setManufacture: Function;
-};
-
-const Filters = ({
-  colors,
-  manufactures,
-  color,
-  manufacture,
-  setColor,
-  setManufacture,
-}: FiltersProps) => {
+const Filters = ({ colors, manufactures }: FiltersProps) => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+  const color = useSelector((state: RootState) => state.color);
+  const manufacture = useSelector((state: RootState) => state.manufacture);
+  const sortBy = useSelector((state: RootState) => state.sortBy);
+
   const handleColor = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setColor(event.target.value);
+    dispatch(changeColor(event.target.value));
   };
 
   const handleManufacture = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setManufacture(event.target.value);
+    dispatch(changeManufacture(event.target.value));
   };
 
-  const filterCars = () => {};
+  const handleSortBy = (event: React.ChangeEvent<{ value: unknown }>) => {
+    dispatch(changeSortBy(event.target.value));
+  };
+
+  const filterCars = () => {
+    let filters = [];
+    if (color) {
+      filters.push({ name: "color", value: color });
+    }
+
+    if (manufacture) {
+      filters.push({ name: "manufacturer", value: manufacture });
+    }
+
+    if (sortBy !== "none") {
+      filters.push({ name: "sort", value: sortBy });
+    }
+
+    dispatch(fetchCars(1, filters));
+  };
 
   return (
     <div className="filters">
@@ -96,7 +109,6 @@ const Filters = ({
           })}
         </Select>
       </FormControl>
-      <br />
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined-label">
           Manufacture
@@ -120,26 +132,23 @@ const Filters = ({
           })}
         </Select>
       </FormControl>
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-outlined-label">Sort By</InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={sortBy}
+          onChange={handleSortBy}
+          label="Sort By"
+        >
+          <MenuItem value="none">None</MenuItem>
+          <MenuItem value="asc">Mileage Ascending</MenuItem>
+          <MenuItem value="des">Mileage Descending</MenuItem>
+        </Select>
+      </FormControl>
       <StyledButton onClick={filterCars}>Filter</StyledButton>
     </div>
   );
 };
 
-const mapStateToProps = ({ color, manufacture }: FiltersProps) => ({
-  color,
-  manufacture,
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-  setColor(color: string) {
-    dispatch(changeColor(color));
-  },
-  setManufacture(manufacture: string) {
-    dispatch(changeManufacture(manufacture));
-  },
-  filterCars(manufacture: string) {
-    //dispatch(changeManufacture(manufacture));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filters);
+export default Filters;

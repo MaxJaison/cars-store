@@ -1,10 +1,16 @@
 import { combineReducers } from "redux";
-import colors from "./colors";
-import manufactures from "./manufactures";
-import cars from "./cars";
+import carsReducer from "./carsReducer";
+import {
+  changePageReducer,
+  colorsReducer,
+  manufacturesReducer,
+  sortByReducer,
+} from "./filtersReducer";
 
 export default combineReducers({
-  colors,
-  manufactures,
-  cars,
+  color: colorsReducer,
+  manufacture: manufacturesReducer,
+  sortBy: sortByReducer,
+  page: changePageReducer,
+  cars: carsReducer,
 });
