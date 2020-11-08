@@ -7,11 +7,11 @@ const EmptyCard = () => {
     <>
       <Card>
         <CardContent className="content">
-          <div className="grey-square"></div>
+          <div className="grey-square" />
           <div>
-            <div className="grey-line"></div>
-            <div className="grey-line"></div>
-            <div className="grey-line"></div>
+            <div className="grey-line" />
+            <div className="grey-line" />
+            <div className="grey-line" />
           </div>
         </CardContent>
       </Card>

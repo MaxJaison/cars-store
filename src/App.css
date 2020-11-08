@@ -15,6 +15,10 @@ p:not(:last-child) {
   padding-right: 24px;
 }
 
+main {
+  min-height: calc(100vh - 160px);
+}
+
 footer {
   height: 80px;
   border-top: 1px solid #ededed;

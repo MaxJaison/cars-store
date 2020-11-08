@@ -10,3 +10,7 @@
   color: #ea7f28;
   text-decoration: none;
 }
+
+.link:hover {
+  text-decoration: underline;
+}

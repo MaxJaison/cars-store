@@ -1,9 +1,11 @@
 import {
+  Car,
   CarsActionTypes,
   CarsData,
   CHANGE_PAGE,
   FETCH_CARS_ERROR,
   FETCH_CARS_SUCCESS,
+  FETCH_CAR_SUCCESS,
   FiltersActionTypes,
 } from "../types";
 
@@ -21,6 +23,20 @@ const fetchCarsError = (error: any) => {
   };
 };
 
+const fetchCarSuccess = (car: Car): CarsActionTypes => {
+  return {
+    type: FETCH_CAR_SUCCESS,
+    payload: car,
+  };
+};
+
+const fetchCarError = (error: any) => {
+  return {
+    type: FETCH_CARS_ERROR,
+    payload: error,
+  };
+};
+
 const changePage = (page: unknown): FiltersActionTypes => {
   return {
     type: CHANGE_PAGE,
@@ -28,7 +44,7 @@ const changePage = (page: unknown): FiltersActionTypes => {
   };
 };
 
-const fetchCars = (
+export const fetchCars = (
   page: number,
   filters: { name: string; value: string }[]
 ) => {
@@ -54,4 +70,19 @@ const fetchCars = (
   };
 };
 
-export default fetchCars;
+export const fetchCar = (stockNumber: string) => {
+  return (dispatch: any) => {
+    fetch(`/api/cars/${stockNumber}`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          throw res.error;
+        }
+        dispatch(fetchCarSuccess(res.car));
+        return res;
+      })
+      .catch((error) => {
+        dispatch(fetchCarError(error));
+      });
+  };
+};
