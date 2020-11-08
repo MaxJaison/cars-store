@@ -1,0 +1,8 @@
+.filters {
+  border: 1px solid #ededed;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 290px;
+}

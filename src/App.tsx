@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-import CarsList from "./Components/CarsList";
+import Home from "./Components/Home";
 import NoMatch from "./Components/NoMatch";
 import Car from "./Components/Car";
 
@@ -15,20 +15,22 @@ const App = () => {
           <p>Sell</p>
         </nav>
       </header>
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/cars" /> :
-        </Route>
-        <Route exact path="/cars/:id">
-          <Car />
-        </Route>
-        <Route exact path="/cars">
-          <CarsList />
-        </Route>
-        <Route path="*">
-          <NoMatch />
-        </Route>
-      </Switch>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/cars" /> :
+          </Route>
+          <Route exact path="/cars/:id">
+            <Car />
+          </Route>
+          <Route exact path="/cars">
+            <Home />
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
+      </main>
       <footer>
         <p>Copyright 2020</p>
       </footer>

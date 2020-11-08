@@ -1,39 +1,84 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CarsList.css";
-import Filters from "./Filters";
-import { Manufacture } from "./IManufacture";
+import { useDispatch, useSelector } from "react-redux";
+import { Car, RootState } from "../types";
+import fetchCars from "../actionCreator/carsActions";
+import { Card, CardContent, CardMedia } from "@material-ui/core";
+import Pagination from "@material-ui/lab/Pagination";
+import EmptyCard from "./EmptyCard";
 
 const CarsList = () => {
-  const [colors, setColors] = useState([]);
-  const [manufactures, setManufactures] = useState([]);
-  const [cars, setCars] = useState([]);
+  const data = useSelector((state: RootState) => state.cars);
+  const color = useSelector((state: RootState) => state.color);
+  const manufacture = useSelector((state: RootState) => state.manufacture);
+  const sortBy = useSelector((state: RootState) => state.sortBy);
+  const page = useSelector((state: RootState) => state.page);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("/api/colors")
-      .then((res) => res.json())
-      .then((data) => {
-        setColors(data.colors);
-      });
-    fetch("/api/manufacturers")
-      .then((res) => res.json())
-      .then((data) => {
-        setManufactures(data.manufacturers);
-      });
-    fetch("/api/cars?sort=asc&page=1")
-      .then((res) => res.json())
-      .then((data) => {
-        setCars(data);
-      });
+    dispatch(fetchCars(1, []));
   }, []);
 
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    let filters = [];
+    if (color) {
+      filters.push({ name: "color", value: color });
+    }
+
+    if (manufacture) {
+      filters.push({ name: "manufacturer", value: manufacture });
+    }
+
+    if (sortBy !== "none") {
+      filters.push({ name: "sort", value: sortBy });
+    }
+
+    dispatch(fetchCars(value, filters));
+  };
+
   return (
-    <div className="container">
-      <Filters colors={colors} manufactures={manufactures} />
-      <div className="cars">
-        <h2>Available cars</h2>
-        <p>Showing 10 of 100 results</p>
-      </div>
+    <div className="cars">
+      {data.pending ? (
+        <EmptyCard />
+      ) : (
+        <>
+          <h2>Available Cars</h2>
+          <p>Showing 10 of {data.carsData.totalCarsCount} results</p>
+          {data.carsData.cars.map((car: Car) => {
+            return (
+              <Card className="card" key={car.stockNumber}>
+                <CardMedia
+                  className="image"
+                  image={car.pictureUrl}
+                  title={car.modelName}
+                />
+                <CardContent>
+                  <h2>
+                    {car.manufacturerName} {car.modelName}
+                  </h2>
+                  <p>
+                    Stock # {car.stockNumber} - {car.mileage.number / 1000}{" "}
+                    {car.mileage.unit} - {car.fuelType} - {car.color}
+                  </p>
+                  <Link className="link" to={`/cars/${car.stockNumber}`}>
+                    View Details
+                  </Link>
+                </CardContent>
+              </Card>
+            );
+          })}
+          <div>
+            <Pagination
+              count={data.carsData.totalPageCount}
+              page={page}
+              onChange={handleChange}
+              defaultPage={1}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

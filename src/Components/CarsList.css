@@ -1,19 +1,40 @@
-.container {
-  padding: 24px;
-  display: flex;
-}
-
-.filters {
-  border: 1px solid #ededed;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
 .cars {
-  padding: 24px;
   width: 100%;
   margin-left: 24px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 24px;
   border: 1px solid #ededed;
+}
+
+.image {
+  width: 120px;
+  height: 100px;
+}
+
+.content {
+  display: flex;
+}
+
+.grey-square {
+  width: 120px;
+  height: 100px;
+  margin-right: 20px;
+  background-color: #ededed;
+}
+
+.grey-line {
+  width: 200px;
+  margin-bottom: 10px;
+  height: 30px;
+  background-color: #ededed;
+}
+
+.grey-line:not(:first-child) {
+  height: 20px;
+  width: 150px;
 }
