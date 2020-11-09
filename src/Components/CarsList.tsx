@@ -9,13 +9,12 @@ import Pagination from "@material-ui/lab/Pagination";
 import EmptyCard from "./EmptyCard";
 
 const CarsList = () => {
+  const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.cars);
   const color = useSelector((state: RootState) => state.color);
   const manufacture = useSelector((state: RootState) => state.manufacture);
   const sortBy = useSelector((state: RootState) => state.sortBy);
   const page = useSelector((state: RootState) => state.page);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCars(1, []));

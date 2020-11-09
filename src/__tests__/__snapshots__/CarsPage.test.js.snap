@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders CarsPage 1`] = `
+<div>
+  <div
+    class="cars"
+  >
+    <div
+      class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+    >
+      <div
+        class="MuiCardContent-root content"
+      >
+        <div
+          class="grey-square"
+        />
+        <div>
+          <div
+            class="grey-line"
+          />
+          <div
+            class="grey-line"
+          />
+          <div
+            class="grey-line"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
