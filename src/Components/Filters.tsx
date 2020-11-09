@@ -82,7 +82,6 @@ const Filters = ({ colors, manufactures }: FiltersProps) => {
         <InputLabel id="demo-simple-select-outlined-label">Color</InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
           value={color}
           onChange={handleColor}
           label="Color"
@@ -92,7 +91,7 @@ const Filters = ({ colors, manufactures }: FiltersProps) => {
           </MenuItem>
           {colors.map((color: string) => {
             return (
-              <MenuItem key={color} value={color}>
+              <MenuItem data-testid="color-select" key={color} value={color}>
                 {color}
               </MenuItem>
             );
@@ -105,7 +104,6 @@ const Filters = ({ colors, manufactures }: FiltersProps) => {
         </InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
           value={manufacture}
           onChange={handleManufacture}
           label="Manufacture"
@@ -115,7 +113,11 @@ const Filters = ({ colors, manufactures }: FiltersProps) => {
           </MenuItem>
           {manufactures.map((manufacture: Manufacture) => {
             return (
-              <MenuItem key={manufacture.name} value={manufacture.name}>
+              <MenuItem
+                data-testid="manufacture-select"
+                key={manufacture.name}
+                value={manufacture.name}
+              >
                 {manufacture.name}
               </MenuItem>
             );
