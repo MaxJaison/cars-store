@@ -1,14 +1,9 @@
-import {
-  CarsActionTypes,
-  FETCH_CARS_ERROR,
-  FETCH_CARS_SUCCESS,
-  FETCH_CAR_SUCCESS,
-} from "../types";
+import { ERROR, FETCH_CARS_SUCCESS, FETCH_CAR_SUCCESS } from "../constants";
+import { CarsActionTypes } from "../types";
 
 const initialState = {
   pending: true,
-  carsData: {},
-  error: null,
+  cars: [],
 };
 
 export const carsReducer = (state = initialState, action: CarsActionTypes) => {
@@ -17,13 +12,13 @@ export const carsReducer = (state = initialState, action: CarsActionTypes) => {
       return {
         ...state,
         pending: false,
-        carsData: action.payload,
+        ...action.payload,
       };
-    case FETCH_CARS_ERROR:
+    case ERROR:
       return {
         ...state,
         pending: false,
-        error: action.payload,
+        ...action.payload,
       };
     default:
       return state;
@@ -35,12 +30,12 @@ export const carReducer = (state = {}, action: CarsActionTypes) => {
     case FETCH_CAR_SUCCESS:
       return {
         ...state,
-        car: action.payload,
+        ...action.payload,
       };
-    case FETCH_CARS_ERROR:
+    case ERROR:
       return {
         ...state,
-        error: action.payload,
+        ...action.payload,
       };
     default:
       return state;

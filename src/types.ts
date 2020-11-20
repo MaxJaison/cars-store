@@ -1,3 +1,16 @@
+import {
+  CHANGE_COLOR,
+  CHANGE_MANUFACTURE,
+  CHANGE_PAGE,
+  CHANGE_SORT_BY,
+  ERROR,
+  FETCH_CARS_PENDING,
+  FETCH_CARS_SUCCESS,
+  FETCH_CAR_SUCCESS,
+  FETCH_COLORS_SUCCESS,
+  FETCH_MANUFACTURERS_SUCCESS,
+} from "./constants";
+
 export interface RootState {
   cars: any;
   car: any;
@@ -5,13 +18,15 @@ export interface RootState {
   manufacture: any;
   sortBy: any;
   page: any;
+  colors: any;
+  manufacturers: any;
 }
 
 export interface Manufacture {
   name: string;
   models: {
     name: string;
-  };
+  }[];
 }
 
 export interface Car {
@@ -35,18 +50,8 @@ export interface CarsData {
 
 export type FiltersProps = {
   colors: string[];
-  manufactures: Manufacture[];
+  manufacturers: Manufacture[];
 };
-
-export const CHANGE_COLOR = "CHANGE_COLOR";
-export const CHANGE_MANUFACTURE = "CHANGE_MANUFACTURE";
-export const CHANGE_SORT_BY = "CHANGE_SORT_BY";
-export const CHANGE_PAGE = "CHANGE_PAGE";
-
-export const FETCH_CARS_PENDING = "FETCH_CARS_PENDING";
-export const FETCH_CARS_SUCCESS = "FETCH_CARS_SUCCESS";
-export const FETCH_CAR_SUCCESS = "FETCH_CAR_SUCCESS";
-export const FETCH_CARS_ERROR = "FETCH_CARS_ERROR";
 
 interface ChangeColor {
   type: typeof CHANGE_COLOR;
@@ -82,8 +87,18 @@ interface FetchCar {
   payload: Car;
 }
 
+interface FetchColors {
+  type: typeof FETCH_COLORS_SUCCESS;
+  payload: string[];
+}
+
+interface FetchManufacturers {
+  type: typeof FETCH_MANUFACTURERS_SUCCESS;
+  payload: Manufacture[];
+}
+
 interface Error {
-  type: typeof FETCH_CARS_ERROR;
+  type: typeof ERROR;
   payload: any;
 }
 
@@ -91,5 +106,9 @@ export type FiltersActionTypes =
   | ChangeColor
   | ChangeManufacture
   | ChangeSortBy
-  | ChangePage;
+  | ChangePage
+  | FetchColors
+  | FetchManufacturers
+  | Error;
+
 export type CarsActionTypes = FetchCars | FetchCar | Error | Pending;

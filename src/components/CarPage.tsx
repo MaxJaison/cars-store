@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Car, RootState } from "../types";
 import { useParams } from "react-router-dom";
-import { fetchCar } from "../actionCreators/carsActions";
+import { fetchCar } from "../actionCreators/CarsActions";
 import "./CarPage.css";
 
 interface ParamTypes {
@@ -11,7 +11,7 @@ interface ParamTypes {
 
 const CarPage = () => {
   let { id } = useParams<ParamTypes>();
-  const car: Car = useSelector((state: RootState) => state.car.car);
+  const car: Car = useSelector((state: RootState) => state.car);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const CarPage = () => {
 
   return (
     <>
-      {!car ? (
+      {!Object.keys(car).length ? (
         <div>Loading car...</div>
       ) : (
         <div className="wrapper">

@@ -3,10 +3,13 @@ import {
   CHANGE_MANUFACTURE,
   CHANGE_PAGE,
   CHANGE_SORT_BY,
-  FiltersActionTypes,
-} from "../types";
+  ERROR,
+  FETCH_COLORS_SUCCESS,
+  FETCH_MANUFACTURERS_SUCCESS,
+} from "../constants";
+import { FiltersActionTypes } from "../types";
 
-export const colorsReducer = (
+export const colorReducer = (
   state: string = "",
   action: FiltersActionTypes
 ) => {
@@ -18,7 +21,7 @@ export const colorsReducer = (
   }
 };
 
-export const manufacturesReducer = (
+export const manufactureReducer = (
   state: string = "",
   action: FiltersActionTypes
 ) => {
@@ -49,6 +52,31 @@ export const changePageReducer = (
   switch (action.type) {
     case CHANGE_PAGE:
       return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const colorsReducer = (state = [], action: FiltersActionTypes) => {
+  switch (action.type) {
+    case FETCH_COLORS_SUCCESS:
+      return [...state, ...action.payload];
+    case ERROR:
+      return [...state, ...action.payload];
+    default:
+      return state;
+  }
+};
+
+export const manufacturersReducer = (
+  state = [],
+  action: FiltersActionTypes
+) => {
+  switch (action.type) {
+    case FETCH_MANUFACTURERS_SUCCESS:
+      return [...state, ...action.payload];
+    case ERROR:
+      return [...state, ...action.payload];
     default:
       return state;
   }

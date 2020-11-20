@@ -1,6 +1,6 @@
 import { render } from "../test-utils";
 import React from "react";
-import CarPage from "../Components/CarPage";
+import CarPage from "../components/CarPage";
 
 test("renders CarPage", () => {
   const { container } = render(<CarPage />, {});

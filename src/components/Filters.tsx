@@ -5,14 +5,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import React, { useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { FiltersProps, Manufacture, RootState } from "../types";
+import { Manufacture, RootState } from "../types";
 import "./Filters.css";
-import { fetchCars } from "../actionCreators/carsActions";
+import { fetchCars } from "../actionCreators/CarsActions";
 import {
   changeColor,
   changeManufacture,
   changeSortBy,
-} from "../actionCreators/filterActions";
+  fetchColors,
+  fetchManufacturers,
+} from "../actionCreators/FilterActions";
 
 const StyledButton = withStyles({
   root: {
@@ -35,16 +37,20 @@ const StyledButton = withStyles({
   },
 })(Button);
 
-const Filters = ({ colors, manufactures }: FiltersProps) => {
+const Filters = () => {
   const dispatch = useDispatch();
   const color = useSelector((state: RootState) => state.color);
   const manufacture = useSelector((state: RootState) => state.manufacture);
+  const colors = useSelector((state: RootState) => state.colors);
+  const manufacturers = useSelector((state: RootState) => state.manufacturers);
   const sortBy = useSelector((state: RootState) => state.sortBy);
 
   useEffect(() => {
     dispatch(changeColor(""));
     dispatch(changeManufacture(""));
     dispatch(changeSortBy("none"));
+    dispatch(fetchColors());
+    dispatch(fetchManufacturers());
   }, [dispatch]);
 
   const handleColor = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -109,13 +115,13 @@ const Filters = ({ colors, manufactures }: FiltersProps) => {
           label="Manufacture"
         >
           <MenuItem value="">
-            <em>All manufactures</em>
+            <em>All manufacturers</em>
           </MenuItem>
-          {manufactures.map((manufacture: Manufacture) => {
+          {manufacturers.map((manufacture: Manufacture) => {
             return (
               <MenuItem
                 data-testid="manufacture-select"
-                key={manufacture.name}
+                key={manufacture.models[0].name}
                 value={manufacture.name}
               >
                 {manufacture.name}

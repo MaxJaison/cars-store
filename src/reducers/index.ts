@@ -1,17 +1,21 @@
 import { combineReducers } from "redux";
-import { carsReducer, carReducer } from "./carsReducer";
+import { carsReducer, carReducer } from "./CarsReducer";
 import {
   changePageReducer,
+  colorReducer,
   colorsReducer,
-  manufacturesReducer,
+  manufactureReducer,
+  manufacturersReducer,
   sortByReducer,
-} from "./filtersReducer";
+} from "./FiltersReducer";
 
 export default combineReducers({
-  color: colorsReducer,
-  manufacture: manufacturesReducer,
+  color: colorReducer,
+  manufacture: manufactureReducer,
   sortBy: sortByReducer,
   page: changePageReducer,
   cars: carsReducer,
+  colors: colorsReducer,
+  manufacturers: manufacturersReducer,
   car: carReducer,
 });
