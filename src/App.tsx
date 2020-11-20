@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Home from "./components/Home";
-import NoMatch from "./components/NoMatch";
-import CarPage from "./components/CarPage";
+import Home from "./Components/Home";
+import NoMatch from "./Components/NoMatch";
+import CarPage from "./Components/CarPage";
 
 const App = () => {
   return (
