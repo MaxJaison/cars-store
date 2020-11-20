@@ -1,25 +1,15 @@
 import {
-  Car,
-  CarsActionTypes,
-  CarsData,
   CHANGE_PAGE,
-  FETCH_CARS_ERROR,
+  ERROR,
   FETCH_CARS_SUCCESS,
   FETCH_CAR_SUCCESS,
-  FiltersActionTypes,
-} from "../types";
+} from "../constants";
+import { Car, CarsActionTypes, CarsData, FiltersActionTypes } from "../types";
 
 const fetchCarsSuccess = (carsData: CarsData): CarsActionTypes => {
   return {
     type: FETCH_CARS_SUCCESS,
     payload: carsData,
-  };
-};
-
-const fetchCarsError = (error: any) => {
-  return {
-    type: FETCH_CARS_ERROR,
-    payload: error,
   };
 };
 
@@ -30,9 +20,9 @@ const fetchCarSuccess = (car: Car): CarsActionTypes => {
   };
 };
 
-const fetchCarError = (error: any) => {
+const fetchError = (error: any) => {
   return {
-    type: FETCH_CARS_ERROR,
+    type: ERROR,
     payload: error,
   };
 };
@@ -65,7 +55,7 @@ export const fetchCars = (
         return res;
       })
       .catch((error) => {
-        dispatch(fetchCarsError(error));
+        dispatch(fetchError(error));
       });
   };
 };
@@ -82,7 +72,7 @@ export const fetchCar = (stockNumber: string) => {
         return res;
       })
       .catch((error) => {
-        dispatch(fetchCarError(error));
+        dispatch(fetchError(error));
       });
   };
 };

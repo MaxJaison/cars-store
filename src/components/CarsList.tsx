@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import "./CarsList.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Car, RootState } from "../types";
-import { fetchCars } from "../actionCreators/carsActions";
+import { fetchCars } from "../actionCreators/CarsActions";
 import { Card, CardContent, CardMedia } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import EmptyCard from "./EmptyCard";
 
 const CarsList = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.cars);
+  const carsData = useSelector((state: RootState) => state.cars);
   const color = useSelector((state: RootState) => state.color);
   const manufacture = useSelector((state: RootState) => state.manufacture);
   const sortBy = useSelector((state: RootState) => state.sortBy);
@@ -39,21 +39,21 @@ const CarsList = () => {
 
   return (
     <div className="cars">
-      {data.pending ? (
+      {carsData.pending ? (
         <EmptyCard />
       ) : (
         <>
           <h2>Available Cars</h2>
           <p>
             Showing{" "}
-            {data.carsData.totalCarsCount < 10
-              ? data.carsData.totalCarsCount
-              : data.carsData.cars.length === 10
+            {carsData.totalCarsCount < 10
+              ? carsData.totalCarsCount
+              : carsData.cars.length === 10
               ? 10
-              : data.carsData.totalCarsCount % 10}{" "}
-            of {data.carsData.totalCarsCount} results
+              : carsData.totalCarsCount % 10}{" "}
+            of {carsData.totalCarsCount} results
           </p>
-          {data.carsData.cars.map((car: Car) => {
+          {carsData.cars.map((car: Car) => {
             return (
               <Card className="card" key={car.stockNumber}>
                 <CardMedia
@@ -78,7 +78,7 @@ const CarsList = () => {
           })}
           <div>
             <Pagination
-              count={data.carsData.totalPageCount}
+              count={carsData.totalPageCount}
               page={page}
               onChange={handleChange}
               defaultPage={1}

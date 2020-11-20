@@ -8,7 +8,7 @@ export const colors = [
   "silver",
 ];
 
-export const manufactures = [
+export const manufacturers = [
   {
     name: "Audi",
     models: [
